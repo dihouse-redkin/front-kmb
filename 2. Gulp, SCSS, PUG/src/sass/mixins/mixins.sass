@@ -1,0 +1,124 @@
+@mixin font-face($font-family, $file-path, $weight: normal, $style: normal, $asset-pipeline: false )
+	@font-face
+		font-family: $font-family
+		font-weight: $weight
+		font-style: $style
+
+		@if $asset-pipeline == true 
+			src: font-url('#{$file-path}.eot')
+			src: font-url('#{$file-path}.eot?#iefix') format('embedded-opentype'), font-url('#{$file-path}.woff') format('woff'), font-url('#{$file-path}.ttf') format('truetype')
+		@else
+			src: url('#{$file-path}.eot')
+			src: url('#{$file-path}.eot?#iefix') format('embedded-opentype'), url('#{$file-path}.woff') format('woff'), url('#{$file-path}.ttf') format('truetype')
+
+@mixin tr
+	transition: 0.2s all ease-out
+	
+
+@mixin pseudo($content: '', $display: block, $pos: absolute)
+	content: $content
+	display: $display
+	position: $pos
+
+@mixin transform($coordinates: default)
+	position: absolute
+	@if $coordinates == 'x'
+		left: 50%
+		transform: translateX(-50%)
+	@if $coordinates == 'y'
+		transform: translateY(-50%)
+		top: 50%
+	@if $coordinates == 'default'
+		transform: translate(-50%, -50%)
+		left: 50%
+		top: 50%
+
+@mixin wh($widht, $height: $widht)
+	width: $widht
+	height: $height
+	
+@mixin bg($url, $position: center, $no-repeat: no-repeat)
+	background: url('../img/#{$url}') $no-repeat $position
+
+@mixin grey($val: 100%)
+	filter: grayscale($val)
+	
+
+@mixin button($background: transparent, $border-radius: 0, $border-size: 1px, $border-color: #000, $color: #000)
+	outline: none
+	user-select: none
+	cursor: pointer
+	background: $background
+	border-radius: $border-radius
+	border: $border-size solid $border-color
+	color: $color
+	display: flex
+	justify-content: center
+	align-items: center
+
+@mixin counter($var)
+	counter-reset: $var
+	> li
+		&:before
+			content: counter($var)
+			counter-increment: $var
+
+@mixin triangle($width, $height, $bg, $direction)
+	width: 0px
+	height: 0px
+	border-style: solid
+	@if $direction == t
+		border-width: 0 $width / 2 + px $height + px $width / 2 + px
+		border-color: transparent transparent $bg transparent
+	@if $direction == r
+		border-width: $height / 2 + px 0 $height / 2 + px $width + px
+		border-color: transparent transparent transparent $bg
+	@if $direction == b
+		border-width: $height + px $width / 2 + px 0 $width / 2 + px
+		border-color: $bg transparent transparent transparent
+	@if $direction == l
+		border-width: $height / 2 + px $width + px $height / 2 + px 0
+		border-color: transparent $bg transparent transparent
+	@if $direction == tl
+		border-width: $height + px $width + px 0 0
+		border-color: $bg transparent transparent transparent
+	@if $direction == tr
+		border-width: 0 $width + px $height + px 0
+		border-color: transparent $bg transparent transparent
+	@if $direction == br
+		border-width: 0 0 $height + px $width + px
+		border-color: transparent transparent $bg transparent
+	@if $direction == bl
+		border-width: $height + px 0 0 $width + px
+		border-color: transparent transparent transparent $bg
+
+@mixin text-overflow
+	overflow: hidden
+	text-overflow: ellipsis
+	white-space: nowrap
+
+@mixin flex-center
+	display: flex
+	justify-content: center
+	align-items: center
+
+@mixin jcsbai
+	display: flex
+	justify-content: space-between
+	align-items: center
+
+@mixin jcsb
+	display: flex
+	justify-content: space-between
+
+@mixin aic
+	display: flex
+	align-items: center
+
+@mixin media-min($size)
+	@media (min-width: $size)
+		@content
+
+@mixin media-max($size)
+	@media (max-width: $size)
+		@content
